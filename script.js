@@ -1,11 +1,25 @@
 let builds = [];
 
 function calculateTotal(build) {
-    return build.cpu + build.gpu + build.motherboard + build.ram + build.ssd + build.psu + build.case + build.windows + build.miscellaneous;
+    return (
+        build.cpu +
+        build.gpu +
+        build.motherboard +
+        build.ram +
+        build.ssd +
+        build.psu +
+        build.case +
+        build.windows +
+        build.miscellaneous
+    );
 }
 
 function calculateProfit(build) {
     return build.salePrice - calculateTotal(build);
+}
+
+function formatCurrency(value) {
+    return `$${value.toFixed(2)}`;
 }
 
 function updateBuildsTable() {
@@ -25,20 +39,17 @@ function updateBuildsTable() {
             <td>${formatCurrency(build.case)}</td>
             <td>${formatCurrency(build.windows)}</td>
             <td>${formatCurrency(build.miscellaneous)}</td>
-            <td class="total-cell">${formatCurrency(calculateTotal(build))}</td>
+            <td>${formatCurrency(calculateTotal(build))}</td>
             <td>${formatCurrency(build.salePrice)}</td>
-            <td class="total-cell">${formatCurrency(calculateProfit(build))}</td>
+            <td>${formatCurrency(calculateProfit(build))}</td>
             <td>
                 <button onclick="editBuild(${index})">Edit</button>
                 <button onclick="deleteBuild(${index})">Delete</button>
             </td>
         `;
+
         tbody.appendChild(row);
     });
-}
-
-function formatCurrency(value) {
-    return `$${value.toFixed(2)}`;
 }
 
 function editBuild(index) {
@@ -55,7 +66,6 @@ function editBuild(index) {
     document.getElementById('miscellaneous').value = build.miscellaneous || '';
     document.getElementById('salePrice').value = build.salePrice || '';
 
-    // Remove the build from the array so that it can be re-added when saved
     builds.splice(index, 1);
     updateBuildsTable();
 }
@@ -65,7 +75,7 @@ function deleteBuild(index) {
     updateBuildsTable();
 }
 
-document.getElementById('buildForm').addEventListener('submit', function(event) {
+document.getElementById('buildForm').addEventListener('submit', function (event) {
     event.preventDefault();
 
     const build = {
