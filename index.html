@@ -2,49 +2,171 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PC Profit Calculator</title>
-    <link rel="stylesheet" href="style.css">
+    <title>PC Flip Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .build-form {
+            margin-bottom: 20px;
+        }
+        .builds-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .builds-table th, .builds-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        .builds-table th {
+            background-color: #f2f2f2;
+        }
+        .total-cell {
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>PC Profit Calculator</h1>
-        </header>
-        
-        <section class="form-section">
-            <h2>Add a New PC Build</h2>
-            <form id="pc-form">
-                <label for="cpuCost">CPU Cost ($):</label>
-                <input type="number" id="cpuCost" placeholder="Enter CPU cost" required>
-                <label for="gpuCost">GPU Cost ($):</label>
-                <input type="number" id="gpuCost" placeholder="Enter GPU cost" required>
-                <label for="motherboardCost">Motherboard Cost ($):</label>
-                <input type="number" id="motherboardCost" placeholder="Enter Motherboard cost" required>
-                <label for="ramCost">RAM Cost ($):</label>
-                <input type="number" id="ramCost" placeholder="Enter RAM cost" required>
-                <label for="storageCost">Storage Cost ($):</label>
-                <input type="number" id="storageCost" placeholder="Enter Storage cost" required>
-                <label for="fansCost">Fans Cost ($):</label>
-                <input type="number" id="fansCost" placeholder="Enter Fans cost" required>
-                <label for="miscCost">Miscellaneous Cost ($):</label>
-                <input type="number" id="miscCost" placeholder="Enter Miscellaneous cost" required>
-                <label for="salePrice">Selling Price ($):</label>
-                <input type="number" id="salePrice" placeholder="Enter selling price" required>
-                <label for="shippingCost">Shipping Cost ($):</label>
-                <input type="number" id="shippingCost" placeholder="Enter shipping cost" required>
-                <button type="button" onclick="addPcBuild()">Add Build</button>
-                <div id="feedback"></div>
-            </form>
-        </section>
-        
-        <section class="builds-section">
-            <h2>Existing PC Builds</h2>
-            <div id="build-list"></div>
-        </section>
-    </div>
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
-    <script src="script.js"></script>
+
+<h1>PC Flip Calculator Dashboard</h1>
+
+<div class="build-form">
+    <h2>Add/Edit Build</h2>
+    <form id="buildForm">
+        <label for="buildId">Build ID:</label>
+        <input type="text" id="buildId" name="buildId" required>
+        <br><br>
+        <label for="cpu">CPU:</label>
+        <input type="number" id="cpu" name="cpu" value="0">
+        <br><br>
+        <label for="gpu">GPU:</label>
+        <input type="number" id="gpu" name="gpu" value="0">
+        <br><br>
+        <label for="motherboard">Motherboard:</label>
+        <input type="number" id="motherboard" name="motherboard" value="0">
+        <br><br>
+        <label for="ram">RAM:</label>
+        <input type="number" id="ram" name="ram" value="0">
+        <br><br>
+        <label for="ssd">SSD:</label>
+        <input type="number" id="ssd" name="ssd" value="0">
+        <br><br>
+        <label for="psu">PSU:</label>
+        <input type="number" id="psu" name="psu" value="0">
+        <br><br>
+        <label for="case">Case:</label>
+        <input type="number" id="case" name="case" value="0">
+        <br><br>
+        <label for="windows">Windows:</label>
+        <input type="number" id="windows" name="windows" value="0">
+        <br><br>
+        <label for="miscellaneous">Miscellaneous:</label>
+        <input type="number" id="miscellaneous" name="miscellaneous" value="0">
+        <br><br>
+        <button type="submit">Save Build</button>
+    </form>
+</div>
+
+<h2>Your Builds</h2>
+<table class="builds-table">
+    <thead>
+        <tr>
+            <th>Build ID</th>
+            <th>CPU</th>
+            <th>GPU</th>
+            <th>Motherboard</th>
+            <th>RAM</th>
+            <th>SSD</th>
+            <th>PSU</th>
+            <th>Case</th>
+            <th>Windows</th>
+            <th>Miscellaneous</th>
+            <th>Total</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody id="buildsTableBody">
+        <!-- Builds will be inserted here -->
+    </tbody>
+</table>
+
+<script>
+    let builds = [];
+
+    function calculateTotal(build) {
+        return build.cpu + build.gpu + build.motherboard + build.ram + build.ssd + build.psu + build.case + build.windows + build.miscellaneous;
+    }
+
+    function updateBuildsTable() {
+        const tbody = document.getElementById('buildsTableBody');
+        tbody.innerHTML = '';
+        builds.forEach((build, index) => {
+            const row = document.createElement('tr');
+
+            row.innerHTML = `
+                <td>${build.buildId}</td>
+                <td>${build.cpu}</td>
+                <td>${build.gpu}</td>
+                <td>${build.motherboard}</td>
+                <td>${build.ram}</td>
+                <td>${build.ssd}</td>
+                <td>${build.psu}</td>
+                <td>${build.case}</td>
+                <td>${build.windows}</td>
+                <td>${build.miscellaneous}</td>
+                <td class="total-cell">${calculateTotal(build)}</td>
+                <td>
+                    <button onclick="editBuild(${index})">Edit</button>
+                    <button onclick="deleteBuild(${index})">Delete</button>
+                </td>
+            `;
+            tbody.appendChild(row);
+        });
+    }
+
+    function editBuild(index) {
+        const build = builds[index];
+        document.getElementById('buildId').value = build.buildId;
+        document.getElementById('cpu').value = build.cpu;
+        document.getElementById('gpu').value = build.gpu;
+        document.getElementById('motherboard').value = build.motherboard;
+        document.getElementById('ram').value = build.ram;
+        document.getElementById('ssd').value = build.ssd;
+        document.getElementById('psu').value = build.psu;
+        document.getElementById('case').value = build.case;
+        document.getElementById('windows').value = build.windows;
+        document.getElementById('miscellaneous').value = build.miscellaneous;
+
+        // Remove the build from the array so that it can be re-added when saved
+        builds.splice(index, 1);
+    }
+
+    function deleteBuild(index) {
+        builds.splice(index, 1);
+        updateBuildsTable();
+    }
+
+    document.getElementById('buildForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const build = {
+            buildId: document.getElementById('buildId').value,
+            cpu: parseFloat(document.getElementById('cpu').value) || 0,
+            gpu: parseFloat(document.getElementById('gpu').value) || 0,
+            motherboard: parseFloat(document.getElementById('motherboard').value) || 0,
+            ram: parseFloat(document.getElementById('ram').value) || 0,
+            ssd: parseFloat(document.getElementById('ssd').value) || 0,
+            psu: parseFloat(document.getElementById('psu').value) || 0,
+            case: parseFloat(document.getElementById('case').value) || 0,
+            windows: parseFloat(document.getElementById('windows').value) || 0,
+            miscellaneous: parseFloat(document.getElementById('miscellaneous').value) || 0,
+        };
+
+        builds.push(build);
+        updateBuildsTable();
+        this.reset();
+    });
+</script>
+
 </body>
 </html>
