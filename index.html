@@ -7,83 +7,89 @@
 </head>
 <body>
 
-<h1>PC Flip Calculator Dashboard</h1>
+<header>
+    <h1>PC Flip Calculator Dashboard</h1>
+</header>
 
-<div class="build-form">
-    <h2>Add/Edit Build</h2>
-    <form id="buildForm">
-        <div class="form-row">
-            <label for="buildId">Build ID:</label>
-            <input type="text" id="buildId" name="buildId" required>
-        </div>
-        <div class="form-row">
-            <label for="cpu">CPU:</label>
-            <input type="number" id="cpu" name="cpu" min="0" step="any">
-        </div>
-        <div class="form-row">
-            <label for="gpu">GPU:</label>
-            <input type="number" id="gpu" name="gpu" min="0" step="any">
-        </div>
-        <div class="form-row">
-            <label for="motherboard">Motherboard:</label>
-            <input type="number" id="motherboard" name="motherboard" min="0" step="any">
-        </div>
-        <div class="form-row">
-            <label for="ram">RAM:</label>
-            <input type="number" id="ram" name="ram" min="0" step="any">
-        </div>
-        <div class="form-row">
-            <label for="ssd">SSD:</label>
-            <input type="number" id="ssd" name="ssd" min="0" step="any">
-        </div>
-        <div class="form-row">
-            <label for="psu">PSU:</label>
-            <input type="number" id="psu" name="psu" min="0" step="any">
-        </div>
-        <div class="form-row">
-            <label for="case">Case:</label>
-            <input type="number" id="case" name="case" min="0" step="any">
-        </div>
-        <div class="form-row">
-            <label for="windows">Windows:</label>
-            <input type="number" id="windows" name="windows" min="0" step="any">
-        </div>
-        <div class="form-row">
-            <label for="miscellaneous">Miscellaneous:</label>
-            <input type="number" id="miscellaneous" name="miscellaneous" min="0" step="any">
-        </div>
-        <div class="form-row">
-            <label for="salePrice">Sale Price:</label>
-            <input type="number" id="salePrice" name="salePrice" min="0" step="any">
-        </div>
-        <button type="submit">Save Build</button>
-    </form>
-</div>
+<main>
+    <section class="build-form">
+        <h2>Add or Edit Build</h2>
+        <form id="buildForm">
+            <div class="form-group">
+                <label for="buildId">Build ID</label>
+                <input type="text" id="buildId" name="buildId" required>
+            </div>
+            <div class="form-group">
+                <label for="cpu">CPU ($)</label>
+                <input type="number" id="cpu" name="cpu" min="0" step="any">
+            </div>
+            <div class="form-group">
+                <label for="gpu">GPU ($)</label>
+                <input type="number" id="gpu" name="gpu" min="0" step="any">
+            </div>
+            <div class="form-group">
+                <label for="motherboard">Motherboard ($)</label>
+                <input type="number" id="motherboard" name="motherboard" min="0" step="any">
+            </div>
+            <div class="form-group">
+                <label for="ram">RAM ($)</label>
+                <input type="number" id="ram" name="ram" min="0" step="any">
+            </div>
+            <div class="form-group">
+                <label for="ssd">SSD ($)</label>
+                <input type="number" id="ssd" name="ssd" min="0" step="any">
+            </div>
+            <div class="form-group">
+                <label for="psu">PSU ($)</label>
+                <input type="number" id="psu" name="psu" min="0" step="any">
+            </div>
+            <div class="form-group">
+                <label for="case">Case ($)</label>
+                <input type="number" id="case" name="case" min="0" step="any">
+            </div>
+            <div class="form-group">
+                <label for="windows">Windows ($)</label>
+                <input type="number" id="windows" name="windows" min="0" step="any">
+            </div>
+            <div class="form-group">
+                <label for="miscellaneous">Miscellaneous ($)</label>
+                <input type="number" id="miscellaneous" name="miscellaneous" min="0" step="any">
+            </div>
+            <div class="form-group">
+                <label for="salePrice">Sale Price ($)</label>
+                <input type="number" id="salePrice" name="salePrice" min="0" step="any">
+            </div>
+            <button type="submit">Save Build</button>
+        </form>
+    </section>
 
-<h2>Your Builds</h2>
-<table class="builds-table">
-    <thead>
-        <tr>
-            <th>Build ID</th>
-            <th>CPU</th>
-            <th>GPU</th>
-            <th>Motherboard</th>
-            <th>RAM</th>
-            <th>SSD</th>
-            <th>PSU</th>
-            <th>Case</th>
-            <th>Windows</th>
-            <th>Misc</th>
-            <th>Total Cost</th>
-            <th>Sale Price</th>
-            <th>Profit</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody id="buildsTableBody">
-        <!-- Builds will be inserted here -->
-    </tbody>
-</table>
+    <section class="builds-table-section">
+        <h2>Your Builds</h2>
+        <table class="builds-table">
+            <thead>
+                <tr>
+                    <th>Build ID</th>
+                    <th>CPU</th>
+                    <th>GPU</th>
+                    <th>Motherboard</th>
+                    <th>RAM</th>
+                    <th>SSD</th>
+                    <th>PSU</th>
+                    <th>Case</th>
+                    <th>Windows</th>
+                    <th>Misc</th>
+                    <th>Total Cost</th>
+                    <th>Sale Price</th>
+                    <th>Profit</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="buildsTableBody">
+                <!-- Builds will be inserted here -->
+            </tbody>
+        </table>
+    </section>
+</main>
 
 <script src="script.js"></script>
 
