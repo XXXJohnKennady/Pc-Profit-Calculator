@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PC Profit Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>PC Profit Calculator</h1>
+        <div class="dashboard">
+            <h2>Add New PC Build</h2>
+            <form id="pc-form">
+                <label for="cpuCost">CPU Cost ($):</label>
+                <input type="number" id="cpuCost" required>
+
+                <label for="gpuCost">GPU Cost ($):</label>
+                <input type="number" id="gpuCost" required>
+
+                <label for="motherboardCost">Motherboard Cost ($):</label>
+                <input type="number" id="motherboardCost" required>
+
+                <label for="ramCost">RAM Cost ($):</label>
+                <input type="number" id="ramCost" required>
+
+                <label for="storageCost">Storage Cost ($):</label>
+                <input type="number" id="storageCost" required>
+
+                <label for="fansCost">Fans Cost ($):</label>
+                <input type="number" id="fansCost" required>
+
+                <label for="miscCost">Miscellaneous Cost ($):</label>
+                <input type="number" id="miscCost" required>
+
+                <label for="salePrice">Selling Price ($):</label>
+                <input type="number" id="salePrice" required>
+
+                <button type="button" onclick="addPcBuild()">Add Build</button>
+            </form>
+
+            <h2>Builds</h2>
+            <div id="build-list"></div>
+        </div>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
