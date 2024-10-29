@@ -1,3 +1,4 @@
+/* General Styles */
 body {
     font-family: Arial, sans-serif;
     background-color: #1e1e1e;
@@ -8,6 +9,7 @@ body {
 
 h1, h2 {
     color: #ffffff;
+    text-align: center;
 }
 
 .build-form {
@@ -15,6 +17,13 @@ h1, h2 {
     background-color: #2d2d2d;
     padding: 20px;
     border-radius: 5px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.form-row {
+    margin-bottom: 15px;
 }
 
 .build-form label {
@@ -24,11 +33,17 @@ h1, h2 {
 }
 
 .build-form input {
+    width: calc(100% - 160px);
     padding: 5px;
     background-color: #3e3e3e;
-    border: none;
+    border: 1px solid #555;
     color: #ffffff;
     border-radius: 3px;
+}
+
+.build-form input:focus {
+    outline: none;
+    border-color: #007acc;
 }
 
 .build-form button {
@@ -39,6 +54,7 @@ h1, h2 {
     color: #ffffff;
     cursor: pointer;
     border-radius: 3px;
+    width: 100%;
 }
 
 .build-form button:hover {
@@ -64,6 +80,10 @@ h1, h2 {
     background-color: #3e3e3e;
 }
 
+.builds-table tr:nth-child(even) {
+    background-color: #2a2a2a;
+}
+
 .total-cell {
     font-weight: bold;
 }
@@ -75,9 +95,23 @@ h1, h2 {
     color: #ffffff;
     cursor: pointer;
     border-radius: 3px;
+    margin: 2px;
 }
 
 .builds-table button:hover {
     background-color: #005f99;
 }
 
+@media (max-width: 800px) {
+    .build-form label, .build-form input {
+        display: block;
+        width: 100%;
+    }
+    .build-form label {
+        margin-bottom: 5px;
+    }
+    .builds-table th, .builds-table td {
+        font-size: 12px;
+        padding: 5px;
+    }
+}
